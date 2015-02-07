@@ -4,7 +4,11 @@ INSTALL_DEST := /opt/www
 TARGETS := install update-repo
 .PHONY: $(TARGETS) help
 help:
+	@echo
 	@echo "Choose a target from $(TARGETS)"
+	@echo "  install: copy files from this repo to the deployment area."
+	@echo "  update-repo: copy files from the deployment area to this repo."
+	@echo
 
 install:
 	cp $(FILES) $(INSTALL_DEST)
