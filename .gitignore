@@ -1,0 +1,3 @@
+
+# skip temporary vim files
+\.*.swp
