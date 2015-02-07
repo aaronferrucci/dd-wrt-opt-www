@@ -7,6 +7,7 @@ echo ""
 echo '<html>'
 echo '<head>'
 echo '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'
+echo '<meta name="viewport" content="width=device-width, initial-scale=1">'
 echo '<title>Network Control</title>'
 echo '</head>'
 echo '<body>'
@@ -35,17 +36,17 @@ echo '<body>'
      echo '<br>'
      if [ $MODE -eq 1 ]; then
        /jffs/bin/guest_on > /dev/null
-       echo "<br>open network:<br>"
+       echo "<br>The network is unrestricted.<br>"
      elif [ $MODE -eq 2 ]; then
        /jffs/bin/guest_restrict > /dev/null
-       echo "<br>restricted network:<br>"
+       echo "<br>The network is restricted.<br>"
      else
        echo "<br>error: MODE: " $MODE "<br>"
      fi
   fi
-echo "<pre>"
-iptables -nvL FORWARD
-echo "</pre>"
+# echo "<pre>"
+# iptables -nvL FORWARD
+# echo "</pre>"
 echo '</body>'
 echo '</html>'
 
