@@ -9,7 +9,13 @@ echo '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'
 echo '<title>Form Example</title>'
 echo '</head>'
 echo '<body>'
-
+  echo "<p>"
+  echo -n "Script host: "
+  hostname
+  echo "<p>"
+  echo -n "Script location: "
+  echo $0
+  echo "<p>"
   echo "<form method=GET action=\"${SCRIPT}\">"\
        '<table nowrap>'\
           '<tr><td>Input</TD><TD><input type="text" name="val_x" size=12></td></tr>'\

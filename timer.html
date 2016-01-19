@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+  #timer {
+    background: rgb(230, 230, 230);
+    text-align: center;
+    font-size: xx-large;
+  }
+</style>
 <script type="text/javascript">
 var Timer;
 var TotalSeconds;
@@ -14,20 +21,38 @@ function CreateTimer(TimerID, Time) {
 }
 
 function Tick() {
-  TotalSeconds -= 1;
+  if (TotalSeconds > 0)
+    TotalSeconds -= 1;
   UpdateTimer();
   window.setTimeout("Tick()", 1000);
 }
 
+function two_digit(value)
+{
+//  if (value > 10)
+//    return value;
+//  if (value > 1)
+//    return "0" + value;
+//  return "00";
+  var s = "00" + value;
+  return s.substr(-2);
+}
+
 function UpdateTimer() {
-  Timer.innerHTML = TotalSeconds;
+  var count = TotalSeconds;
+  var seconds = Math.floor(count % 60);
+  count = count / 60;
+  var minutes = Math.floor(count % 60);
+  count = count / 60;
+  var hours = Math.floor(count % 24);
+  Timer.innerHTML = two_digit(hours) + ':' + two_digit(minutes) + ':' + two_digit(seconds);
 }
 
 </script>
 </head>
 
 <body>
-<div id='timer' />
-<script type="text/javascript">window.onload = CreateTimer("timer", 30);</script>
+<div id='timer'></div>
+<script type="text/javascript">window.onload = CreateTimer("timer", 14 * 60 * 60);</script>
 </body>
 </html>

@@ -1,5 +1,4 @@
 #!/bin/sh
-
 export PATH=/jffs/bin:$PATH
 echo '<!DOCTYPE html>'
 echo '<head>'
@@ -14,6 +13,14 @@ echo '  }'
 echo '</style>'
 echo '</head>'
 echo '<body>'
+# Reminder: where is this script?
+echo "<p>"
+echo -n "Script host: "
+hostname
+echo "<p>"
+echo -n "Script location: "
+echo $0
+echo "<p>"
 
 echo "<form method=GET action=\"${SCRIPT}\">"
 #echo '<input type="radio" name="network_mode" value="1" checked> Open Network<br>'
@@ -34,17 +41,19 @@ echo "</form>"
   echo '<br>'
   if [ ! -z "$QUERY_STRING" ]; then
      MODE=`echo "$QUERY_STRING" | sed -n 's/^.*network_mode=\([^&]*\).*$/\1/p' | sed "s/%20/ /g"`
-     rm -f /tmp/network_control_*
      if [ $MODE -eq 1 ]; then
        /jffs/bin/guest_on > /dev/null
-       touch /tmp/network_control_unrestricted
+       /jffs/bin/dial_control 100
+       echo "network on:" `date` >> /tmp/network_control.log
      elif [ $MODE -eq 2 ]; then
        /jffs/bin/guest_restrict > /dev/null
-       touch /tmp/network_control_restricted
+       /jffs/bin/dial_control 0
+       echo "network off:" `date` >> /tmp/network_control.log
      else
        echo "error: MODE: \" $MODE \""
      fi
   fi
+# Note: /tmp/network_control_* are managed by /jffs/bin/guest_*.
 if [ -f /tmp/network_control_restricted ] ; then
   echo "The network is restricted.<br>"
 elif  [ -f /tmp/network_control_unrestricted ] ; then
