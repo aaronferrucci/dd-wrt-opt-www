@@ -44,11 +44,11 @@ echo "</form>"
      if [ $MODE -eq 1 ]; then
        /jffs/bin/guest_on > /dev/null
        /jffs/bin/dial_control 100
-       echo "network on:" `date` >> /tmp/network_control.log
+       echo "network on from '$REMOTE_ADDR':" `date` >> /tmp/network_control.log
      elif [ $MODE -eq 2 ]; then
        /jffs/bin/guest_restrict > /dev/null
        /jffs/bin/dial_control 0
-       echo "network off:" `date` >> /tmp/network_control.log
+       echo "network off from '$REMOTE_ADDR':" `date` >> /tmp/network_control.log
      else
        echo "error: MODE: \" $MODE \""
      fi
